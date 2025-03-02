@@ -86,7 +86,7 @@ def process_chunks_and_generate_summary(chunks, source_name):
         
         # Generate summary based on csv or pdf file
         if source_name == "csv":
-            prompt = "Analyze the crypto currency data and give very specific summary on it"
+            prompt = "Analyze the cryptocurrency dataset in detail and provide a highly specific summary, including key trends, significant price movements, trading volume fluctuations, and any notable patterns or anomalies. Ensure the summary highlights potential market insights, correlations, and any emerging trends."
         elif source_name == "pdf":
             prompt = "Can you give me a summary of the context I gave, be super clear and explicit?"
 

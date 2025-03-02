@@ -4,7 +4,7 @@ import shutil
 import requests
 import pandas as pd
 from fastapi import FastAPI, WebSocket, Request, UploadFile, File
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.websockets import WebSocketDisconnect
 from twilio.twiml.voice_response import VoiceResponse, Connect, Say, Stream
 from dotenv import load_dotenv
@@ -126,6 +126,26 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/download/binance-data")
+async def download_binance_data():
+    """
+    Endpoint to download the binance_data.csv file
+    """
+    file_path = "./binance_data.csv"  # Adjust path to your file location
+    
+    # Verify file exists
+    if not os.path.exists(file_path):
+        raise HTTPException(
+            status_code=404,
+            detail="CSV file not found"
+        )
+
+    return FileResponse(
+        path=file_path,
+        media_type="text/csv",
+        filename="binance_data.csv"
+    )
 
 @app.get("/api/update-btc-data")
 async def manual_btc_update():

@@ -12,6 +12,7 @@ from langchain.chains import RetrievalQA
 import chromadb
 from langchain.tools import Tool
 from langchain.agents import initialize_agent, AgentType
+from langchain.prompts import PromptTemplate  # Add this import
 
 # Disable tokenizers parallelism warning
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -106,17 +107,23 @@ def create_chroma_tool():
         vectordb = get_vector_store()
         retriever = vectordb.as_retriever(search_kwargs={"k": 3})
         
-        qa_prompt = """You are a blockchain technical analyst. Use these steps:
-        1. Analyze document context thoroughly
-        2. Identify key technical indicators
-        3. Relate findings to current crypto market conditions
-        4. Highlight potential risks and opportunities"""
+        # Create proper PromptTemplate
+        qa_prompt = PromptTemplate.from_template(
+            """You are a blockchain technical analyst. Use these steps:
+            1. Analyze document context thoroughly
+            2. Identify key technical indicators
+            3. Relate findings to current crypto market conditions
+            4. Highlight potential risks and opportunities
+            
+            Context: {context}
+            Question: {question}"""
+        )
         
         qa_chain = RetrievalQA.from_chain_type(
             llm=llms["groq"],
             chain_type="stuff",
             retriever=retriever,
-            chain_type_kwargs={"prompt": qa_prompt}
+            chain_type_kwargs={"prompt": qa_prompt}  # Now passing a proper template
         )
         return qa_chain.invoke(query)["result"]
     

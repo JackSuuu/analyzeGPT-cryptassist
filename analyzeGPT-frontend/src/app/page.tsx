@@ -81,8 +81,8 @@ export default function Home() {
         }
 
       const response = await axios.post(
-        'https://unigpt-backend-git-79205187327.europe-west2.run.app/api/generate_output/',
-        { query: userQuery, use_groq: true },
+        'http://0.0.0.0:8000/api/generate_output/',
+        { query: userQuery, use_groq: true, mode: hasSummary ? "knowledge" : "data" },
         { headers: { 'Content-Type': 'application/json' } }
       );
 
@@ -130,7 +130,7 @@ export default function Home() {
 
     try {
       const response = await axios.post(
-        'https://unigpt-backend-git-79205187327.europe-west2.run.app/api/upload_pdf/',
+        'http://0.0.0.0:8000/api/upload_csv/',
         formData,
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );
@@ -168,6 +168,16 @@ export default function Home() {
 
   return (
     <div className="container">
+        {/* Right-side container for chart */}
+        <div className={`right-container ${showChart ? 'open' : ''}`}>
+        <div className="chart-header">
+          <h3 className="visualize-heading" >Trading Data Visualization</h3>
+        </div>
+        <div className="chart-wrapper">
+          <PredictionChart />
+        </div>
+      </div>
+
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <nav>
           <button className="close-button" onClick={toggleSidebar}>

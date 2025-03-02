@@ -53,6 +53,7 @@ header h1 {
 
 
 .container {
+  position: relative;
   min-width: 300px;
   width: 47%;
   height: 85vh;
@@ -64,12 +65,100 @@ header h1 {
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
   padding: 24px;
   transition: all 0.3s ease;
+  margin-right: 640px;
 }
 
 @media (max-width: 1000px) {
   .container {
     width: 80%;
   }
+}
+
+.visualize-heading{
+  color: #ffffff;
+  font-size: 35px;
+  padding-bottom: 35px;
+  margin-left: 20px;
+}
+
+.right-container {
+  opacity: 1;
+  visibility: visible;
+  position: fixed;
+  right: 2rem;
+  top: 2rem;
+  width: 600px;
+  height: 100vh;
+  background: #4e74c1;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+  transition: right 0.3s ease-in-out;
+  border: #28428f 5px solid;
+  border-radius: 10px;
+  background-color: #4e74c1;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.right-container.open {
+  right: 100;
+}
+
+@media (max-width: 799px) {
+  .right-container{
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  .container{
+    margin-right: 0px;
+  }
+}
+
+
+.chart-header {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chart-wrapper {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.close-chart {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.data-selector {
+  padding: 12px 18px;
+  padding-right: 15px;
+  background: #4D4FE7;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+.data-selector:hover {
+  background: #4547b3;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.data-selector:focus {
+  box-shadow: 0 0 0 3px rgba(77, 79, 231, 0.4);
 }
 
 .chatbox {
@@ -84,7 +173,7 @@ header h1 {
   border: none;
   display: flex;
   flex-direction: column;
-  min-height: 40vh; /* Added minimum height */
+  min-height: 54vh; /* Added minimum height */
 }
 
 
@@ -171,8 +260,8 @@ input[type="file"] {
 }
 
 .bot-message {
-  background-color: #787af0;
-  color: #2d1e40;
+  background-color: #2c2ea3;
+  color: #e7e7e7;
   align-self: flex-start;
   white-space: pre-wrap;
   line-height: 1.6;
@@ -445,11 +534,10 @@ button:hover {
 /* Summary Page Styles */
 .summary-container {
   width: 80%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #3a2566;
+  background: #28428f;
   border-radius: 15px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
   padding: 24px;
@@ -457,7 +545,7 @@ button:hover {
 }
 
 .summary-content {
-  background: #4b2d7f;
+  background: #2d3b7f;
   padding: 2rem;
   border-radius: 10px;
   margin: 3rem auto;
