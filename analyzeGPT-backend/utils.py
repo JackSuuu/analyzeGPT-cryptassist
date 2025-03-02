@@ -27,7 +27,7 @@ load_dotenv()
 embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
 
 # Initialize CSV data
-CSV_PATH = "../binance_data.csv"  # Change this to your actual CSV file path
+CSV_PATH = "./binance_data.csv"  # Change this to your actual CSV file path
 df = pd.read_csv(CSV_PATH)
 
 # --- VECTOR STORE (ChromaDB) ---
@@ -64,80 +64,113 @@ def initialize_llms():
 # Initialize LLMs
 llms = initialize_llms()
 
-# --- CSV Query Function ---
-def query_csv(query):
-    """Handles structured CSV queries"""
-    try:
-        if "price" in query.lower():
-            return f"Average price: {df['price'].mean():.2f}"
-        elif "cheapest" in query.lower():
-            return df.nsmallest(1, "price").to_string(index=False)
-        elif "expensive" in query.lower():
-            return df.nlargest(1, "price").to_string(index=False)
-        else:
-            return "I couldn't find an exact match in the CSV data."
-    except Exception as e:
-        return f"Error querying CSV: {str(e)}"
+# ... (keep all previous imports and setup code unchanged)
 
-# --- ChromaDB Query Function ---
-def query_chroma(query):
-    """Handles semantic search in ChromaDB"""
-    try:
+# --- Modified CSV Query Function ---
+def create_csv_tool(llm, max_samples=3):
+    """Create CSV tool with crypto analyst persona"""
+    system_prompt = """You are a professional cryptocurrency market analyst. Analyze the CSV data with these rules:
+1. Focus on price patterns, volatility, and market trends
+2. Identify potential arbitrage opportunities
+3. Highlight suspicious trading activity
+4. Explain technical indicators where relevant
+5. Maintain professional tone with clear insights"""
+
+    data_context = f"""
+**Dataset Overview**
+- Total entries: {len(df)}
+- Columns: {', '.join(df.columns)}
+- Sample data:
+{df.head(max_samples).to_string(index=False)}
+"""
+
+    def query_csv(query):
+        """Enhanced crypto analysis using LLM"""
+        full_prompt = f"{system_prompt}\n\n{data_context}\n\nQuery: {query}"
+        try:
+            response = llm.invoke(full_prompt)
+            return response
+        except Exception as e:
+            return f"Analysis error: {str(e)}"
+
+    return Tool(
+        name="Crypto_Market_Analysis",
+        func=query_csv,
+        description="Specialized tool for cryptocurrency market analysis including price trends, volatility patterns, and trading insights"
+    )
+
+# --- Modified ChromaDB Query Function --- 
+def create_chroma_tool():
+    """Create ChromaDB tool with technical analysis focus"""
+    def query_chroma(query):
         vectordb = get_vector_store()
-        retriever = vectordb.as_retriever()
+        retriever = vectordb.as_retriever(search_kwargs={"k": 3})
+        
+        qa_prompt = """You are a blockchain technical analyst. Use these steps:
+        1. Analyze document context thoroughly
+        2. Identify key technical indicators
+        3. Relate findings to current crypto market conditions
+        4. Highlight potential risks and opportunities"""
+        
         qa_chain = RetrievalQA.from_chain_type(
-            llm=llms["groq"],  # Default to Groq
+            llm=llms["groq"],
             chain_type="stuff",
             retriever=retriever,
-            return_source_documents=True
+            chain_type_kwargs={"prompt": qa_prompt}
         )
-        answer = qa_chain.invoke({"query": query})
-        return answer["result"]
-    except Exception as e:
-        return f"Error in ChromaDB search: {str(e)}"
+        return qa_chain.invoke(query)["result"]
+    
+    return Tool(
+        name="Blockchain_Technical_Analysis",
+        func=query_chroma,
+        description="Deep technical analysis of blockchain protocols and whitepapers"
+    )
 
-# --- Agent to Use CSV & ChromaDB Together ---
-csv_tool = Tool(name="CSV Query", func=query_csv, description="For structured data queries.")
-chroma_tool = Tool(name="ChromaDB Search", func=query_chroma, description="For semantic search on CSV data.")
-
-# Create agent
-agent = initialize_agent(
-    tools=[csv_tool, chroma_tool],
-    llm=llms["groq"],
-    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-    verbose=True
-)
-
-# --- Chatbot Function ---
-def make_output(query, use_groq=True):
-    """Generate chatbot output using CSV and ChromaDB"""
+# --- Updated Chatbot Function ---
+def make_output(query, use_groq=True, mode="data"):
+    """Generate analyst-style output"""
     try:
-        print(f"Using {'Groq' if use_groq else 'Ollama'} chain")
-        return agent.run(query)
+        # Select LLM
+        llm = llms["groq" if use_groq else "ollama"]
+        print(f"Activating {mode} mode with {'Groq' if use_groq else 'Ollama'}")
+
+        # Create tools based on mode
+        if mode == "data":
+            tools = [create_csv_tool(llm)]
+        elif mode == "knowledge":
+            tools = [create_chroma_tool()]
+        else:
+            raise ValueError("Invalid mode - use 'data' or 'knowledge'")
+
+        # Initialize specialized agent
+        agent = initialize_agent(
+            tools=tools,
+            llm=llm,
+            agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+            verbose=True,
+            handle_parsing_errors=True,
+            agent_kwargs={
+                'prefix': '''You are a professional cryptocurrency analyst. 
+                Always maintain analytical rigor and market awareness.'''
+            }
+        )
+        
+        return agent.run(f"From {mode} perspective: {query}")
+    
     except Exception as e:
-        print(f"Error in make_output: {str(e)}")
+        print(f"Analysis pipeline error: {str(e)}")
         raise
 
-# --- Streaming Output ---
-def modify_output(input_text):
-    """Modified output with better streaming handling"""
-    try:
-        paragraphs = re.split(r'\n\s*\n', input_text)
-        for para in paragraphs:
-            if not para.strip():
-                continue
-            words = re.split(r'(\s+)', para)
-            for word in words:
-                if word.strip():
-                    yield word + ' '
-                    time.sleep(0.05)
-            yield '\n\n'
-    except Exception as e:
-        print(f"Error in modify_output: {str(e)}")
-        raise
+# ... (keep modify_output and remaining code unchanged)
 
 # Example usage
 if __name__ == "__main__":
-    question = "What is the most expensive product?"
-    response = make_output(question)
-    print("Chatbot response:", response)
+    crypto_question = "Identify any abnormal price patterns in the recent data and potential causes"
+    
+    # Data mode analysis
+    print("\n=== MARKET DATA ANALYSIS ===")
+    print(make_output(crypto_question, mode="data"))
+    
+    # Knowledge mode analysis
+    print("\n=== TECHNICAL KNOWLEDGE ANALYSIS ===")
+    print(make_output("Explain the security implications of recent smart contract trends", mode="knowledge"))

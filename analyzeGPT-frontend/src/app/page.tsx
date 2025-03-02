@@ -265,7 +265,7 @@ export default function Home() {
             id="file-upload"
             onChange={(e: InputEvent) => {
               const selectedFile = e.target.files?.[0];
-              if (selectedFile?.type === 'application/pdf') {
+              if (selectedFile?.type === 'text/csv') {
                 handleFileUpload(selectedFile);
               } else {
                 setMessages(prev => [...prev, {
@@ -274,20 +274,9 @@ export default function Home() {
                 }]);
               }
             }}
-            accept="application/pdf"
+            accept="text/csv"
             disabled={isUploading}
           />
-          <label htmlFor="file-upload" className={isUploading ? 'disabled' : ''}>
-            <FaFileUpload />
-            {isUploading ? (
-              <div className="upload-status">
-                Processing PDF...
-                <div className="loading-spinner"></div>
-              </div>
-            ) : (
-              `${file ? file.name : "Upload PDF document"}`
-            )}
-          </label>
           <label htmlFor="file-upload" className={isUploading ? 'disabled' : ''}>
             <FaFileUpload />
             {isUploading ? (
