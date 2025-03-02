@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Configuration
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 PORT = int(os.getenv('PORT', 5050))
 SYSTEM_MESSAGE = (
     "You are a helpful and bubbly AI assistant who loves to chat about "
@@ -43,6 +43,7 @@ async def handle_incoming_call(request: Request):
     """Handle incoming call and return TwiML response to connect to Media Stream."""
     response = VoiceResponse()
     # <Say> punctuation to improve text-to-speech flow
+    
     response.say("Please wait while we connect your call to the A. I. voice assistant, powered by Twilio and the Open-A.I. Realtime API")
     response.pause(length=1)
     response.say("O.K. you can start talking!")
