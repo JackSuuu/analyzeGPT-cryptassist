@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "UniGPT",
+  title: "analyzeGPT",
 };
 
 export default function RootLayout({

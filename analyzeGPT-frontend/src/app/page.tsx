@@ -17,11 +17,17 @@ import { FaHistory } from "react-icons/fa";
 import { IoIosSettings } from "react-icons/io";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import PredictionChart from '@/app/chart';
 
 interface Message {
   content: string;
   type: 'user' | 'bot';
 }
+
+// Add type for form event
+type FormEvent = React.FormEvent<HTMLFormElement>;
+// Add type for input event
+type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 export default function Home() {
   const router = useRouter();
@@ -33,6 +39,7 @@ export default function Home() {
   const simulationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [hasSummary, setHasSummary] = useState(false); // New state for summary check
+  const [showChart, setShowChart] = useState(false);
 
   // Check for summary on client side
   useEffect(() => {
@@ -55,7 +62,7 @@ export default function Home() {
   // Toggle sidebar
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSendMessage = async (e: FormEvent) => {
     e.preventDefault();
     const userQuery = query.trim();
     if (!userQuery) return;
@@ -156,6 +163,9 @@ export default function Home() {
     }
   };
 
+  // Add function to toggle chart visibility
+  const toggleChart = () => setShowChart(!showChart);
+
   return (
     <div className="container">
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
@@ -170,7 +180,7 @@ export default function Home() {
                 disabled={!hasSummary}
                 className="summary-button"
               >
-                <FaFilePdf /> PDF Summary
+                <FaFilePdf /> Trading data Summary
               </button>
             </li>
             <li>
@@ -178,11 +188,20 @@ export default function Home() {
                 <FaRocketchat /> New Chat
               </button>
             </li>
-            <li><button><FaHistory /> History</button></li>
+            <li>
+              <button onClick={toggleChart}>
+                <FaHistory /> Trading Chart
+              </button>
+            </li>
             <li><button><IoIosSettings /> Settings</button></li>
           </ul>
-          <p className='love-message'>Made with <FaHeart /> by context-gpt team</p>
-          <Link href="https://github.com/JackSuuu/ContextGPT" target="_blank" className="github-icon-menu">
+          {showChart && (
+            <div className="chart-container">
+              <PredictionChart />
+            </div>
+          )}
+          <p className='love-message'>Made with <FaHeart /> by analyze-gpt team</p>
+          <Link href="https://github.com/JackSuuu/hack-the-burgh-11" target="_blank" className="github-icon-menu">
             <FiGithub size={24} />
           </Link>
         </nav>
@@ -192,9 +211,9 @@ export default function Home() {
         <button className="menu-button" onClick={toggleSidebar}>
           ☰
         </button>
-        <h1>ContextGPT</h1>
-        <p id="heading-description" ><b>context-based AI agent</b></p>
-        <Link href="https://github.com/JackSuuu/ContextGPT" target="_blank" className="github-icon">
+        <h1>analyzeGPT</h1>
+        <p id="heading-description" ><b>cryptassist</b></p>
+        <Link href="https://github.com/JackSuuu/hack-the-burgh-11" target="_blank" className="github-icon">
           <FiGithub size={24} />
         </Link>
       </header>
@@ -231,8 +250,8 @@ export default function Home() {
           <input
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Message ContextGPT..."
+            onChange={(e: InputEvent) => setQuery(e.target.value)}
+            placeholder="Message analyzeGPT..."
             disabled={isUploading}
           />
           <button type="submit" disabled={isUploading}>
@@ -244,7 +263,7 @@ export default function Home() {
           <input 
             type="file" 
             id="file-upload"
-            onChange={(e) => {
+            onChange={(e: InputEvent) => {
               const selectedFile = e.target.files?.[0];
               if (selectedFile?.type === 'application/pdf') {
                 handleFileUpload(selectedFile);
@@ -267,6 +286,17 @@ export default function Home() {
               </div>
             ) : (
               `${file ? file.name : "Upload PDF document"}`
+            )}
+          </label>
+          <label htmlFor="file-upload" className={isUploading ? 'disabled' : ''}>
+            <FaFileUpload />
+            {isUploading ? (
+              <div className="upload-status">
+                Processing CSV...
+                <div className="loading-spinner"></div>
+              </div>
+            ) : (
+              `${file ? file.name : "Upload CSV document"}`
             )}
           </label>
         </div>

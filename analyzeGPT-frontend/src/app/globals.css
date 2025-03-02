@@ -24,7 +24,7 @@ input:focus {
 }
 
 body {
-  background-color: #2d1e40;
+  background-color: #9fb3d4;
   color: white;
   font-family: var(--font-geist-sans), sans-serif;
   display: flex;
@@ -37,7 +37,7 @@ body {
 header {
   display: flex;
   align-items: center;
-  background: #3a2566;
+  background: #4e74c1;
   position: relative;
 }
 
@@ -59,7 +59,7 @@ header h1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #3a2566;
+  background: #4e74c1;
   border-radius: 15px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
   padding: 24px;
@@ -80,17 +80,17 @@ header h1 {
   padding: 18px;
   overflow-y: auto;
   margin-bottom: 18px;
-  background-color: #4b2d7f;
+  background-color: #44619a;
   border: none;
   display: flex;
   flex-direction: column;
-  min-height: 52vh; /* Added minimum height */
+  min-height: 40vh; /* Added minimum height */
 }
 
 
 .input-container {
-  border: 2px solid #c98aff;
-  background-color: #4b2d7f;
+  border: 2px solid #4D4FE7;
+  background-color: #44619a;
   padding: 10px 15px;
   border-radius: 10px;
 }
@@ -126,7 +126,7 @@ input[type="file"] {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #a874e3, #8a4be3);
+  background: linear-gradient(135deg, #4D4FE7, #6d6ff5);
   color: white;
   padding: 16px 24px;
   margin-top: 7px;
@@ -141,7 +141,7 @@ input[type="file"] {
 }
 
 .file-upload-label:hover {
-  background: linear-gradient(135deg, #c98aff, #a874e3);
+  background: linear-gradient(135deg, #5457db, #6d6ff5);
   transform: translateY(-2px);
 }
 
@@ -165,13 +165,13 @@ input[type="file"] {
 }
 
 .user-message {
-  background-color: #8a4be3;
+  background-color: #4D4FE7;
   color: white;
   align-self: flex-end;
 }
 
 .bot-message {
-  background-color: #b18ae0;
+  background-color: #787af0;
   color: #2d1e40;
   align-self: flex-start;
   white-space: pre-wrap;
@@ -198,7 +198,7 @@ input[type="file"] {
   background: #2d1e40;
   padding: 0.25em 0.5em;
   border-radius: 5px;
-  color: #c98aff;
+  color: #8aa7ff;
   font-size: 0.95em;
 }
 
@@ -215,11 +215,11 @@ pre {
 }
 
 code {
-  background: #2d1e40;
+  background: #1e2340;
   padding: 0.3em 0.5em;
   border-radius: 4px;
   font-family: 'Fira Code', monospace;
-  color: #c98aff;
+  color: #8a98ff;
 }
 
 table {
@@ -229,7 +229,7 @@ table {
 }
 
 table th {
-  background: #3a2566;
+  background: #4D4FE7;
   color: white;
   font-weight: bold;
   padding: 12px;
@@ -239,15 +239,15 @@ table th {
 table td {
   border: 1px solid #555;
   padding: 12px;
-  background: #4b2d7f;
+  background: #4D4FE7;
   color: white;
 }
 
 blockquote {
-  border-left: 4px solid #c98aff;
+  border-left: 4px solid #4D4FE7;
   margin: 1rem 0;
   padding: 0.5rem 1rem;
-  background-color: #3a2566;
+  background-color: rgb(37, 68, 160);
   border-radius: 4px;
   color: #ccc;
   font-style: italic;
@@ -263,25 +263,25 @@ form {
 input {
   flex-grow: 1;
   padding: 14px;
-  border: 1px solid #a874e3;
+  border: 1px solid #747fe3;
   border-radius: 25px;
   outline: none;
   font-size: 16px;
-  background-color: #54357b;
+  background-color: #354c7b;
   color: white;
   transition: 0.3s ease-in-out;
 }
 
 input:focus {
-  border-color: #c98aff;
-  box-shadow: 0px 0px 10px rgba(201, 138, 255, 0.8);
+  border-color: #3a3c9e;
+  box-shadow: 0px 0px 10px rgba(138, 163, 255, 0.8);
 }
 
 button {
   position: relative;
   padding: 14px 20px;
   border: none;
-  background-color: #a874e3;
+  background-color: #7490e3;
   color: white;
   border-radius: 25px;
   cursor: pointer;
@@ -292,7 +292,7 @@ button {
 
 
 button:hover {
-  background-color: #c98aff;
+  background-color: #8ab5ff;
 }
 
 .disabled {
@@ -309,7 +309,7 @@ button:hover {
 }
 
 .input-container button[disabled] {
-  background-color: #6d4a9e !important;
+  background-color: #4a509e !important;
   cursor: not-allowed;
 }
 
@@ -331,7 +331,7 @@ button:hover {
   display: flex;
   align-items: center;
   padding: 8px 12px;
-  background: #4b2d7f;
+  background: #2d307f;
   border-radius: 8px;
   margin-top: 8px;
   font-size: 0.9em;
@@ -343,7 +343,7 @@ button:hover {
   left: -400px;
   width: 280px;
   height: 100%;
-  background: #3a2566;
+  background: #253566;
   transition: left 0.3s ease;
   z-index: 998;
   padding: 20px;
@@ -367,7 +367,7 @@ button:hover {
 }
 
 .sidebar li button {
-  background: #4b2d7f;
+  background: #2d417f;
   border: none;
   color: white;
   padding: 12px 20px;
@@ -383,7 +383,7 @@ button:hover {
 }
 
 .sidebar li button:hover {
-  background: #5d3a9e;
+  background: #3a3c9e;
   transform: translateX(5px);
 }
 
@@ -401,7 +401,7 @@ button:hover {
 }
 
 .menu-button:hover {
-  background: #4b2d7f;
+  background: #3a3c9e;
 }
 
 .github-icon {
@@ -415,16 +415,16 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #c98aff;;
+  color: #4D4FE7;;
   transition: 0.2s;
 }
 
 .github-icon-menu:hover {
-  color: #813cbd;
+  color: #3c3cbd;
 }
 
 .github-icon:hover {
-  color: #c98aff;
+  color: #8a9cff;
 }
 
 @media (max-width: 500px) {
@@ -438,7 +438,7 @@ button:hover {
   font-size: 1rem;
   font-weight: 500;
   margin-top: 10px;
-  color: #c98aff;
+  color: #8a98ff;
   font-family: 'Inter', sans-serif;
 }
 
@@ -473,7 +473,7 @@ button:hover {
 .summary-content h2,
 .summary-content h3,
 .summary-content h4 {
-  color: #c98aff;
+  color: #8a9fff;
   margin-top: 0;
   margin-bottom: 1rem;
 }
@@ -494,10 +494,10 @@ button:hover {
 
 /* Inline Code */
 .summary-content code {
-  background: #2d1e40;
+  background: #1e2440;
   padding: 0.3em 0.5em;
   border-radius: 4px;
-  color: #c98aff;
+  color: #8a9dff;
 }
 
 .summary-content p {
@@ -509,13 +509,13 @@ button:hover {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #c98aff;
+  color: #8aa3ff;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .back-button:hover {
-  color: #a874e3;
+  color: #74ade3;
 }
 
 .loading-spinner.large {
@@ -527,14 +527,14 @@ button:hover {
 .error-message {
   text-align: center;
   padding: 2rem;
-  background: #4b2d7f;
+  background: #2d477f;
   border-radius: 10px;
   margin: 2rem;
 }
 
 /* Summary Page Styles */
 .summary-content {
-  background: #4b2d7f;
+  background: #2e2d7f;
   padding: 2rem;
   border-radius: 10px;
   margin: 2rem auto;
@@ -542,7 +542,7 @@ button:hover {
 }
 
 .back-button {
-  background: #a874e3;
+  background: #74a2e3;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -556,11 +556,11 @@ button:hover {
 }
 
 .back-button:hover {
-  background: #c98aff;
+  background: #8ab5ff;
 }
 
 .summary-button {
-  background: #8a4be3;
+  background: #4b76e3;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -571,11 +571,25 @@ button:hover {
 }
 
 .summary-button:disabled {
-  background: #4b2d7f;
+  background: #2d447f;
   cursor: not-allowed;
   opacity: 0.7;
 }
 
 .summary-button:not(:disabled):hover {
-  background: #c98aff;
+  background: #8ab9ff;
+}
+
+/* Added By Jonathan. Do not trust */
+.csv-container {
+  width: 80%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #3a2566;
+  border-radius: 15px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+  padding: 24px;
+  margin-top: 90px;
 }
