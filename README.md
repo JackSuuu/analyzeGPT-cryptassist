@@ -3,7 +3,7 @@
 **Unlock Crypto Market Insights with AI-Powered Analysis**  
 *Your intelligent assistant for cryptocurrency market analysis and trading strategy generation*
 
-![Demo Preview](https://via.placeholder.com/800x400.png?text=AnalyzeGPT+Interface+Preview)
+![Demo Preview](home.png)
 
 ## How to run
 
