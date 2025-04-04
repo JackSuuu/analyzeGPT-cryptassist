@@ -131,15 +131,3 @@ MIT License - See [LICENSE](LICENSE) for details
 
 **Made with ❤️ by analyze-gpt team**  
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/JackSuuu/hack-the-burgh-11)
-```
-
-This README includes:
-1. Clear project overview with visual elements
-2. Detailed feature breakdown
-3. Installation and usage instructions
-4. Technology stack visualization
-5. Development roadmap
-6. Contribution guidelines
-7. License information
-
-Would you like me to add any specific section or modify existing content?
