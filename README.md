@@ -1,4 +1,6 @@
-# AnalyzeGPT - cryptassist 🔍📈 hack-the-burgh-11
+# 🔍📈 AnalyzeGPT - cryptassist
+
+> AnalyzeGPT is a hack-the-burgh-11 competition for QRT challenge outcome!
 
 **Unlock Crypto Market Insights with AI-Powered Analysis**  
 *Your intelligent assistant for cryptocurrency market analysis and trading strategy generation*
@@ -14,7 +16,7 @@ In order to run locally:
 3. activate voice handling backend
 4. activate `ngrok`
 
-## Key Features 🚀
+## 🚀 Key Features
 
 - **CSV Data Integration** 📁  
   Upload custom cryptocurrency market data for personalized analysis
@@ -31,7 +33,7 @@ In order to run locally:
 - **Strategy Generation** 💡  
   Get personalized trading strategies based on your data
 
-## How It Works ⚙️
+## ⚙️ How It Works
 
 ```mermaid
 graph TD
@@ -45,7 +47,7 @@ graph TD
     G --> H[Visualization & Report]
 ```
 
-## Installation 📦
+## 📦 Installation
 
 1. **Clone Repository**
    ```bash
@@ -73,7 +75,7 @@ graph TD
    # Add your API keys and configurations
    ```
 
-## Usage Guide 📖
+## 📖 Usage Guide
 
 1. **Data Upload**
    ```python
@@ -94,25 +96,24 @@ graph TD
    - Choose analysis mode: Quick Scan/Deep Dive
    - Receive visual report + strategy suggestions
 
-## Tech Stack 🛠️
+## 🛠️ Tech Stack
 
 | Component              | Technology               |
 |------------------------|--------------------------|
 | Frontend               | React, Recharts, WebRTC  |
 | Backend                | FastAPI, Python          |
-| ML Processing          | PyTorch, Scikit-learn    |
+| ML Processing          | PyTorch, Langchain       |
 | Real-Time Data         | CCXT, Binance API        |
 | Local LLM              | Ollama, Llama2           |
 | Visualization          | D3.js, Plotly            |
-| Deployment             | Docker, Kubernetes       |
 
-## Roadmap 🗺️
+## 🗺️ Roadmap
 
-- [ ] Fix Server Error Handling (Priority 1)
-- [ ] Implement Real-Time API Integration
-- [ ] Develop ML Strategy Engine
-- [ ] Add Phone Call Interface
-- [ ] Optimize Local LLM Performance
+- [x] Fix Server Error Handling (Priority 1)
+- [x] Implement Real-Time API Integration
+- [x] Develop ML Strategy Engine
+- [x] Add Phone Call Interface
+- [x] Optimize Local LLM Performance
 - [ ] Create Mobile App Version
 
 ## Contribution Guidelines 🤝
